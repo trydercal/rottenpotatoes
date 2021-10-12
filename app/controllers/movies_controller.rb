@@ -13,6 +13,9 @@ class MoviesController < ApplicationController
     end
     @ratings_to_show = params[:ratings].keys
     @movies = Movie.with_ratings(params[:ratings].keys)
+    if @movies.nil?
+      @movies=[]
+    end
   end
 
   def new
