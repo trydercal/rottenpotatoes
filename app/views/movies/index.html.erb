@@ -11,16 +11,22 @@
       <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
     </div>
   <% end %>
-  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary', :name => "sort[#{@sort_type}]" %>
 <% end %>
 
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <th>
+        <%= link_to 'Movie Title', movies_path(:sort => { "title" => 1}, :ratings => @ratings_to_pass), :id=>"title_header" %>
+       </th> 
       <th>Rating</th>
-      <th>Release Date</th>
+      <th>
+        <% css_class = @sort_date ? "hilite" : "" %>
+        <% css_class = @sort_date ? ".bg-primary" : "" %>
+        <%= link_to 'Release Date', movies_path(:sort => { "date" => 1}, :ratings => @ratings_to_pass), :id=>"release_date_header"%> 
+       </th>
       <th>More Info</th>
     </tr>
   </thead>

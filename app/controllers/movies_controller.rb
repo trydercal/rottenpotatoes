@@ -11,12 +11,36 @@ class MoviesController < ApplicationController
     if params[:ratings].nil?
       params[:ratings] = {}
     end
+    @sort_title = false
+    @sort_date = false
+    @ratings_to_pass = params[:ratings]
     @ratings_to_show = params[:ratings].keys
     @movies = Movie.with_ratings(params[:ratings].keys)
     if @movies.nil?
       @movies=[]
     end
+    if params[:sort].nil?
+      return
+    end
+    if params[:sort].empty?
+      return
+    end
+    unless params[:sort].is_a?Hash
+      return
+    end
+    
+    type_sort = params[:sort].keys[0]
+    @sort_type = type_sort
+    if type_sort.eql? ("title")
+      @movies = @movies.order(:title)
+      @sort_title = true
+    end
+    if type_sort.eql? ("date")
+      @movies = @movies.order(:release_date)
+      @sort_date = true
+    end
   end
+  
 
   def new
     # default: render 'new' template
