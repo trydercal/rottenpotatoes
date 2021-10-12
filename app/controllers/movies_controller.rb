@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
       params[:sort] = session[:sort]
     end
     if params[:ratings].nil?
-      params[:ratings] = {}
+      params[:ratings] = {'G': '1', 'PG': '1', 'PG-13': '1', 'R': '2'}
     end
     @sort_title = false
     @sort_date = false
