@@ -1,6 +1,8 @@
 class MoviesController < ApplicationController
   
   def show
+    @ratings_to_pass = session[:ratings]
+    @sort = session[:sort]
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
